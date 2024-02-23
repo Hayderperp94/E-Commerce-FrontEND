@@ -2,4 +2,5 @@
 .app-all{
   direction: rtl;
   font-family: 'Tajawal', sans-serif;
+  overflow: hidden;
 }

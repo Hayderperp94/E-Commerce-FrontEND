@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import { AuthProvider } from './Context/AuthContext';
 import { Provider } from 'react-redux';
-import store from './redux/store'; // Import the Redux store
+import store from './Redux/store.jsx'; // Import the Redux store
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

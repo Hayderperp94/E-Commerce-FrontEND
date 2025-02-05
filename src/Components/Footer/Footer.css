@@ -2,7 +2,8 @@
     background-color: rgb(109, 105, 105);
     bottom: 0;    
     width: 100%; 
-       
+    
+     position: fixed;  
 }
 
 .footer-img{

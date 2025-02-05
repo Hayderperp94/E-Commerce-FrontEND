@@ -1,6 +1,7 @@
 import React from "react";
 import "./Navbar.css"
 import img from '../../assets/logo.png'
+import { Link } from "react-router-dom";
 const Navbar =()=>{
 return(
     <div>
@@ -11,6 +12,7 @@ return(
                 <img className="mx-5" src={img} alt="" width="100px" />
             </div>
             <div>
+                
                 <h1 className="fs-4">الالكترونيات</h1>
             </div>
             <div>

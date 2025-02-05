@@ -9,7 +9,9 @@ function App() {
   return (
     <div className='app-all'>
     <Navbar/>
-    <Router/>
+       <Router/>
+    
+
     <Footer/>
     </div>
   )

@@ -1,18 +1,44 @@
-.card{
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+.card {
+    background-color: #f44336; /* Red background color */
     border-radius: 1rem;
-}
-
-.card:hover{
-    transition:  all .3s;
-    transform: translatey(.3rem);
-}
-.card-title{
-    cursor:default;
-    opacity: 0.5;
-}
-
-.card-img-top{
-    width:100%;
-    padding: 0;
-}
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px; /* Soft shadow for better card visibility */
+    overflow: hidden; /* Ensures content doesn’t overflow the card borders */
+  }
+  
+  .card:hover {
+    transition: all 0.3s ease-in-out;
+    transform: translateY(-10px); /* Slight lift effect on hover */
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    opacity: 0.85;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-text {
+    font-size: 0.875rem;
+    color: #555;
+    flex-grow: 1;
+  }
+  
+  .card-img-top {
+    height: 200px;
+    object-fit: contain; /* Ensure the full image is shown */
+    width: 100%;
+  }
+  
+  .card-body {
+    padding: 1.25rem;
+  }
+  
+  .card-body .btn {
+    padding: 0.75rem 1.5rem; /* Consistent button padding */
+  }
+  
+  .card-body .d-flex {
+    display: flex;
+    flex-direction: column;
+  }
+  

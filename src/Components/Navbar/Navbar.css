@@ -1,8 +1,108 @@
-.nav-lang-button{
-    background-color: rgb(202, 194, 194);
-    border-radius: 100%;
-    border: none;
-    padding: 1rem;
-    margin-right: 800px;
-    font-weight: bold;
+/* Navbar Styles */
+.navbar {
+    background-color: white;
+    padding: 10px 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* Links */
+.nav-link {
+    text-decoration: none;
+    color: black;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: #007bff;
+}
+
+/* Language Button */
+.nav-lang-button {
+    background-color: rgb(202, 194, 194);
+    border-radius: 50%;
+    border: none;
+    padding: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Cart Container */
+.cart-container {
+    position: relative;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: black;
+}
+
+/* Cart Count Badge */
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 3px 7px;
+    border-radius: 50%;
+}
+
+/* Navbar Styles for Larger Screens */
+.navbar {
+    background-color: #f8f9fa;
+    padding: 1rem;
+}
+
+.logo {
+    max-width: 100%;
+}
+
+.navbar-nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.navbar-nav .nav-item {
+    display: inline-block;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    background-color: #333;
+}
+
+/* Mobile View (for screens smaller than 992px) */
+@media (max-width: 992px) {
+    /* Adjust navbar links */
+    .navbar-nav {
+        display: block;
+        width: 100%;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 10px;
+    }
+
+    /* Adjust cart container */
+    .cart-container {
+        margin-right: 20px;
+    }
+
+    /* Cart and Language Button for Mobile */
+    .nav-lang-button, .cart-container {
+        margin-top: 10px;
+    }
+}
+
+.navbar .btn {
+    margin-left: 10px;
+  }
+  
+  .navbar .btn-danger {
+    color: white;
+  }

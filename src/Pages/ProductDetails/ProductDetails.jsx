@@ -1,27 +1,47 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useCart } from "../../Pages/Product/CartContext";
+import { useSelector } from "react-redux";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState(null);
-  const { id } = useParams(); // Get product ID from URL
-  const navigate = useNavigate(); // Use navigate hook for redirection
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { addToCart, cart } = useCart();
+  const [qty, setQty] = useState(1);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
-    console.log("Fetching product...");
-    fetch(`https://localhost:7124/api/Products/findbyid${id}`)
+    const apiUrl =
+      process.env.NODE_ENV === "development"
+        ? "https://localhost:7124/api/Products/findbyid"
+        : "https://hayder94-001-site1.otempurl.com/api/Products/findbyid";
+
+    fetch(`${apiUrl}${id}`)
       .then((response) => response.json())
-      .then((data) => {
-        console.log("Fetched product:", data); // Log the fetched product data
-        setProduct(data);
-      })
+      .then((data) => setProduct(data))
       .catch((error) => console.error("Error fetching product:", error));
   }, [id]);
 
-  console.log("Product data:", product); // Check the product data
-
   if (!product) {
-    return <p>Loading...</p>; // Show loading while fetching product details
+    return <p>Loading...</p>;
   }
+
+  const handleIncrease = () => setQty(qty + 1);
+  const handleDecrease = () => setQty(qty > 1 ? qty - 1 : 1);
+
+  const handleAddToCart = () => {
+    console.log("Auth check → isAuthenticated:", isAuthenticated);
+    if (!isAuthenticated) {
+      console.log("Redirecting to /auth...");
+      navigate("/auth", { state: { from: location.pathname } });
+    } else {
+      addToCart({ ...product, qty });
+      navigate("/cart");
+    }
+  };
+  
 
   return (
     <div className="product-description">
@@ -29,11 +49,11 @@ const ProductDetails = () => {
       <p>{product.prodDescription}</p>
 
       <div className="product-images">
-        {product.images && Array.isArray(product.images) && product.images.length > 0 ? (
+        {product.images?.length > 0 ? (
           product.images.map((image, index) => (
             <img
               key={index}
-              src={image.imageUrl || "https://via.placeholder.com/200"} // Use a placeholder if no URL is available
+              src={image?.imageUrl || "https://via.placeholder.com/200"}
               alt={`${product.prodName} - ${index}`}
               style={{ width: "200px", height: "200px" }}
             />
@@ -47,9 +67,14 @@ const ProductDetails = () => {
         <h3>Price: ${product.unitPrice}</h3>
       </div>
 
-      {/* Use product.id instead of el.id */}
-      <button className="btn btn-success" onClick={() => navigate(`/pay/${product.id}`)}>
-        Add to Cart
+      <div className="quantity-selector">
+        <button onClick={handleDecrease} className="btn btn-secondary">-</button>
+        <span className="qty">{qty}</span>
+        <button onClick={handleIncrease} className="btn btn-secondary">+</button>
+      </div>
+
+      <button className="btn btn-success" onClick={handleAddToCart}>
+        🛒 Add to Cart {cart.length > 0 && `(${cart.length})`}
       </button>
     </div>
   );

@@ -1,149 +1,107 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Card from "../../Components/Card/Card"; // Assuming Card component exists
+import { useParams, useSearchParams } from "react-router-dom";
+import Card from "../../Components/Card/Card";
+import { useCart } from "../../Pages/Product/CartContext";
 
 const Pay = () => {
-    const [products, setProducts] = useState([]);
     const [oneProduct, setOneProduct] = useState(null);
     const [userID, setUserID] = useState(null);
-    const [qty, setQty] = useState(1); // Default quantity
+    const { addToCart } = useCart();
+    const { id } = useParams();
+    const [searchParams] = useSearchParams();
+    const [qty, setQty] = useState(Number(searchParams.get("qty")) || 1);
 
-    // Extract numeric ID from the URL
-    const url = window.location.href;
-    const match = url.match(/\/(\d+)$/);
-    const IDpackage = match ? parseInt(match[1], 10) : null;
+    // Set API URL depending on environment
+    const API_URL = process.env.NODE_ENV === "development" 
+        ? "https://localhost:7124/api/" 
+        : "https://hayder94-001-site1.otempurl.com/api/";
 
-    console.log("🆔 Extracted IDpackage:", IDpackage, typeof IDpackage);
-
-    // Fetch user ID from backend
     useEffect(() => {
         const getUserID = async () => {
             try {
                 const token = localStorage.getItem("accessToken");
+                if (!token) return;
 
-                if (!token) {
-                    console.error("⚠️ No JWT Token found! User might not be logged in.");
-                    return;
-                }
-
-                const res = await axios.get("https://localhost:7124/api/AppUser/userinfo", {
+                const res = await axios.get(`${API_URL}AppUser/userinfo`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
-                if (!res.data || !res.data.userID) {
-                    console.error("⚠️ userID not found in API response!");
-                    return;
+                if (res.data?.userID) {
+                    setUserID(res.data.userID);
                 }
-
-                setUserID(res.data.userID);
-                console.log("✅ User ID fetched successfully:", res.data.userID);
             } catch (error) {
-                console.error("❌ Error fetching user info:", error.response?.data || error);
+                console.error("❌ Error fetching user info:", error);
             }
         };
 
         getUserID();
-    }, []);
+    }, [API_URL]);
 
-    // Fetch all products and select the required product
     useEffect(() => {
-        const getData = async () => {
+        const getProduct = async () => {
             try {
-                const res = await axios.get("https://localhost:7124/api/Products/GetAllProd");
-
-                if (!Array.isArray(res.data) || res.data.length === 0) {
-                    console.error("⚠️ No products found in API response!");
-                    return;
-                }
-
-                setProducts(res.data);
-
-                if (!IDpackage) {
-                    console.error("⚠️ IDpackage is undefined or null!");
-                    return;
-                }
-
-                const filteredData = res.data.filter(el => el.id === IDpackage);
-
-                if (filteredData.length === 0) {
-                    console.error(`⚠️ No product found with id ${IDpackage}`);
-                    setOneProduct(res.data[0]); // Fallback to first product
-                } else {
-                    setOneProduct(filteredData[0]);
-                }
+                const res = await axios.get(`${API_URL}Products/findbyid/${id}`);
+                setOneProduct(res.data);
             } catch (error) {
-                console.error("❌ Error fetching products:", error);
+                console.error("❌ Error fetching product:", error);
             }
         };
 
-        getData();
-    }, [IDpackage]);
+        getProduct();
+    }, [id, API_URL]);
 
-    // Send selected product data to the backend
+    const handleIncrease = () => setQty(qty + 1);
+    const handleDecrease = () => setQty(qty > 1 ? qty - 1 : 1);
+
     const sendData = async () => {
         if (!oneProduct || !userID) {
-            console.error("⚠️ No product selected or user is not authenticated!");
             alert("Please ensure that a product is selected and you're logged in.");
             return;
         }
 
-        console.log("📤 Sending data:", { 
-            productID: oneProduct.id, 
-            userID: userID, 
-            qty: qty 
-        });
-
         try {
             const token = localStorage.getItem("accessToken");
-            if (!token) {
-                console.error("⚠️ No JWT Token found! Please log in.");
-                return;
-            }
+            if (!token) return;
 
             const res = await axios.post(
-                "https://localhost:7124/api/Cart/CreateCart",
+                `${API_URL}Cart/CreateCart`,
                 {
                     productID: oneProduct.id,
                     userID: userID,
-                    qty: qty
+                    qty: qty,
                 },
-                {
-                    headers: { Authorization: `Bearer ${token}` }
-                }
+                { headers: { Authorization: `Bearer ${token}` } }
             );
 
             console.log("✅ Product added to cart successfully!", res);
+            addToCart({ ...oneProduct, qty }); // Ensure it's added to context cart
         } catch (error) {
-            console.error("❌ Error adding product to cart:", error.response?.data || error);
+            console.error("❌ Error adding product to cart:", error);
         }
     };
 
     return (
         <div>
-            {/* Input for quantity */}
-            <input
-                placeholder="Enter quantity"
-                type="number"
-                value={qty}
-                onChange={(e) => setQty(Number(e.target.value))}
-                min="1"
-            />
+            <h2>Confirm Your Purchase</h2>
+            
+            <div className="quantity-selector">
+                <button onClick={handleDecrease} className="btn btn-secondary">-</button>
+                <span className="qty">{qty}</span>
+                <button onClick={handleIncrease} className="btn btn-secondary">+</button>
+            </div>
 
             <button onClick={sendData} type="button" disabled={!oneProduct || !userID}>
-                شراء المنتج
+                🛒 Buy Now
             </button>
 
-            <div className="row justify-content-center">
-                {oneProduct && (
-                    <div key={oneProduct.id} className="col-md-3">
-                        <Card
-                            name={oneProduct.prodName}
-                            desc={oneProduct.prodDescription}
-                            img={oneProduct.images?.length > 0 ? oneProduct.images[0].imageUrl : "not found"}
-                        />
-                    </div>
-                )}
-            </div>
+            {oneProduct && (
+                <Card
+                    name={oneProduct.prodName}
+                    desc={oneProduct.prodDescription}
+                    img={oneProduct.images?.[0]?.imageUrl || "not found"}
+                />
+            )}
         </div>
     );
 };

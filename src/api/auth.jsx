@@ -1,8 +1,12 @@
 import axios from "axios";
 
-const API_URL = "https://localhost:7124/api/AppUser"; // Replace with your actual API URL
 
+const API_URL =
+  window.location.hostname === "localhost"
+    ? "https://localhost:7124/api/AppUser"
+    : "https://hayder94-001-site1.otempurl.com/api/AppUser";
 
+    
 // Register User by sending the fetched data
 export const registerUser = async (userData) => {
   try {

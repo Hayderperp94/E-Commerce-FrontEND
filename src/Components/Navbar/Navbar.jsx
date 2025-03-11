@@ -1,46 +1,80 @@
 import React from "react";
-import "./Navbar.css"
-import img from '../../assets/logo.png'
 import { Link } from "react-router-dom";
-const Navbar =()=>{
-return(
-    <div>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
-  <div className="d-flex gap-5 align-items-center">  
-          <div className="d-flex gap-3 align-items-center">
-          <div>
-                <img className="mx-5" src={img} alt="" width="100px" />
-            </div>
-            <div>
-                
-                <h1 className="fs-4">الالكترونيات</h1>
-            </div>
-            <div>
-                <h1 className="fs-4">الالعاب</h1>
-            </div>
-            <div>
-                <h1 className="fs-4">الاكسسورات</h1>
-            </div>
-            <div>
-                <h1 className="fs-4">الطعام</h1>
-            </div>
-            <div>
-                <h1 className="fs-4"></h1>
-            </div>
+import { useCart } from "../../Pages/Product/CartContext"; // Import Cart Context
+import { useDispatch, useSelector } from "react-redux"; // Import useSelector and useDispatch
+import { logout } from "../../Redux/authSlice"; // Import logout action
+import "./Navbar.css";
+import img from "../../assets/logo.png";
 
-          </div>
+const Navbar = () => {
+  const { cart } = useCart(); // Get cart data
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Get the authentication state
 
-          <div>
-            <button className="nav-lang-button">
-                EN
-            </button>
-          </div>
-      
-    </div>
-  
-</nav>
-    </div>
-)
-}
+  const handleLogout = () => {
+    dispatch(logout()); // Dispatch the logout action
+  };
 
-export default Navbar
+  return (
+    <nav className="navbar navbar-expand-lg bg-body-tertiary px-4">
+      <div className="container-fluid d-flex justify-content-between align-items-center">
+        
+        {/* Left Side - Logo */}
+        <div className="d-flex gap-4 align-items-center">
+          <Link to="/">
+            <img className="mx-3 logo" src={img} alt="Logo" width="100px" />
+          </Link>
+        </div>
+
+        {/* Right Side - Cart and Language Button */}
+        <div className="d-flex gap-4 align-items-center">
+          <button className="nav-lang-button">EN</button>
+
+          {/* Cart Icon with Count */}
+          <Link to="/cart" className="cart-container">
+            🛒 <span className="cart-count">{cart.length}</span>
+          </Link>
+
+          {/* Show Logout button if user is authenticated, otherwise show Login */}
+          {isAuthenticated ? (
+            <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
+          ) : (
+            <Link to="/auth" className="btn btn-primary">Login</Link>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile Menu - Toggler and Categories */}
+      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+      <div className="collapse navbar-collapse" id="navbarNav">
+        <ul className="navbar-nav ms-auto">
+          <li className="nav-item">
+            <Link to="/electronics" className="nav-link">
+              <h2 className="fs-5">الالكترونيات</h2>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/games" className="nav-link">
+              <h2 className="fs-5">الالعاب</h2>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/accessories" className="nav-link">
+              <h2 className="fs-5">الاكسسورات</h2>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/food" className="nav-link">
+              <h2 className="fs-5">الطعام</h2>
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

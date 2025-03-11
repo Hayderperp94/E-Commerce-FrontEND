@@ -3,48 +3,63 @@ import axios from "axios";
 import Card from "../../Components/Card/Card";
 
 const Product = () => {
-const [product, setproduct] = useState([]);
+  const [product, setProduct] = useState([]);
+  const [error, setError] = useState(null);
 
-const url = window.location.href;
-const IDpackage = url.match(/\/(\d+)$/)[1];
+  const url = window.location.href;
+  const IDpackage = url.match(/\/(\d+)$/)?.[1];
 
-  const getproduct = () => {
-    axios
-      .get("https://localhost:7124/api/Products/GetAllProd")
-      .then((res) => {
-        setproduct(res.data);
-      });
-  };
+  const baseURL =
+    window.location.hostname === "localhost"
+      ? "https://localhost:7124/api/"
+      : "https://hayder94-001-site1.otempurl.com/api/";
 
+   
   useEffect(() => {
-    getproduct();
-  }, []);
-  
-  return (
-    <div className="bg-div">
-      <div>
-      <h1 className="fw-bold text-danger text-center">تعرف على المنتجات الكثيرة  في قسم {IDpackage==1? "الهواتف المحمولة": IDpackage==2? "اجهزة الحاسوب": IDpackage==3? "الاجهزة القابلة للأرتداء":"NOT EXIST"}</h1>
-     </div>
-     <div className="row justify-content-center p-5"> {/* Use row ONCE */}
-        {product?.filter((el)=>el.categoryId==IDpackage).map((el, index) => (
-        <div className="col-md-3 col-sm-6 col-lg-4 col-12 mb-4">
+    const getProduct = async () => {
+      try {
+        const res = await axios.get(`${baseURL}Products/GetAllProd`);
+        setProduct(res.data);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setError("Failed to fetch products. Please try again.");
+      }
+    };
 
-          <Card 
-            key={index} 
-            name={el.prodName} 
-            desc={el.prodDescription}
-            img={el.images.length > 0 ? el.images[0].imageUrl : "not found"}
-            path={`/productdetails/${el.id}`}
-          />
-          
-        
-          </div>
-        ))}
+    getProduct();
+  }, []);
+
+  return (
+    <div className="bg-div py-5">
+      <h1 className="fw-bold text-danger text-center mb-4">
+        تعرف على المنتجات الكثيرة في قسم{" "}
+        {IDpackage === "1"
+          ? "الاجهزة والادوات المنزلية"
+          : IDpackage === "2"
+          ? " الالعاب"
+          : IDpackage === "3"
+          ? "الهواتف المحمولة وملحقاتها"
+          : "اجهزة الحاسوب"}
+      </h1>
+
+      {error && <p className="text-danger text-center">{error}</p>}
+
+      <div className="row justify-content-center">
+        {product
+          ?.filter((el) => el.categoryId == IDpackage)
+          .map((el) => (
+            <div className="col-md-4 col-sm-6 col-lg-3 col-12 mb-4" key={el.id}>
+              <Card
+                name={el.prodName}
+                desc={el.prodDescription}
+                img={el.images.length > 0 ? el.images[0].imageUrl : "/placeholder.jpg"}
+                path={`/productdetails/${el.id}`}
+              />
+            </div>
+          ))}
       </div>
     </div>
   );
-}
+};
 
-export default Product
-
-
+export default Product;

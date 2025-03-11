@@ -9,7 +9,7 @@ const Card = (props) => {
         <img
           src={props.img}
           className="card-img-top rounded-top"
-          alt={props.name}
+        
         />
         <div className="card-body d-flex flex-column">
           <h5 className="card-title text-center">{props.name}</h5>

@@ -19,14 +19,44 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg bg-body-tertiary px-4">
       <div className="container-fluid d-flex justify-content-between align-items-center">
         
-        {/* Left Side - Logo */}
+        {/* Logo */}
         <div className="d-flex gap-4 align-items-center">
           <Link to="/">
             <img className="mx-3 logo" src={img} alt="Logo" width="100px" />
           </Link>
         </div>
 
-        {/* Right Side - Cart and Language Button */}
+          {/* Mobile Menu - Toggler and Categories */}
+      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+      <div className="collapse navbar-collapse" id="navbarNav">
+        <ul className="navbar-nav ms-auto">
+        <li className="nav-item">
+            <Link to={`electronics/4`} className="nav-link">
+              <h2 className="fs-5">الالكترونيات</h2>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={`/homeappliances/1`} className="nav-link">
+              <h2 className="fs-5">الاجهزةالمنزلية</h2>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={`/games/2`} className="nav-link">
+              <h2 className="fs-5">الالعاب</h2>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={`accessories/3`} className="nav-link">
+              <h2 className="fs-5">الهواتف المحمولة</h2>
+            </Link>
+          </li>
+        </ul>
+      </div>
+
+        {/* Cart and Language Button */}
         <div className="d-flex gap-4 align-items-center">
           <button className="nav-lang-button">EN</button>
 
@@ -44,35 +74,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu - Toggler and Categories */}
-      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav ms-auto">
-          <li className="nav-item">
-            <Link to="/electronics" className="nav-link">
-              <h2 className="fs-5">الالكترونيات</h2>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/games" className="nav-link">
-              <h2 className="fs-5">الالعاب</h2>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/accessories" className="nav-link">
-              <h2 className="fs-5">الاكسسورات</h2>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/food" className="nav-link">
-              <h2 className="fs-5">الطعام</h2>
-            </Link>
-          </li>
-        </ul>
-      </div>
+    
     </nav>
   );
 };

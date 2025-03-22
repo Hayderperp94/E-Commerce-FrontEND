@@ -4,6 +4,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   token: localStorage.getItem('authToken') || null,
   isAuthenticated: !!localStorage.getItem('authToken'),
+  userInfo: {
+    username: '',
+    email: '',
+  },
 };
 
 const authSlice = createSlice({
@@ -18,10 +22,14 @@ const authSlice = createSlice({
     logout(state) {
       state.token = null;
       state.isAuthenticated = false;
+      state.userInfo = { username: '', email: '' }; // Clear user info on logout
       localStorage.removeItem('authToken');
+    },
+    setUserInfo(state, action) {
+      state.userInfo = action.payload;
     },
   },
 });
 
-export const { loginSuccess, logout } = authSlice.actions;
+export const { loginSuccess, logout, setUserInfo } = authSlice.actions;
 export default authSlice.reducer;

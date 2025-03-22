@@ -1,0 +1,102 @@
+/* Layout styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px; /* Hide sidebar initially */
+    width: 250px;
+    height: 100%;
+    background-color: #1f2937;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+  
+  .sidebar--open {
+    left: 0;
+  }
+  
+  .sidebar__toggle-btn {
+    position: fixed;
+    margin-top:15px;
+    background: #1f2937;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    top: 20px; /* Keep it at the top */
+    left: 20px; /* Position it on the left side */
+    z-index: 1100; /* Ensure it's above other elements */
+  }
+  
+  
+  /* Profile Section */
+  .sidebar__profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .sidebar__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+  
+  .sidebar__name {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  
+  .sidebar__email {
+    font-size: 0.875rem;
+    color: #d1d5db;
+  }
+  
+  /* Nav Links */
+  .sidebar__nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .sidebar__nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .sidebar__nav-item:hover {
+    background-color: #374151;
+  }
+  
+  /* Logout */
+  .sidebar__logout {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #f87171;
+    font-size: 0.9rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    transition: color 0.2s ease;
+  }
+  
+  .sidebar__logout:hover {
+    color: #fca5a5;
+  }
+  

@@ -9,6 +9,7 @@ import Dashboard from "../../Pages/Dashboard/Dashboard";
 import Register from "../Register and forgot password/Register";
 import Cart from "../../Pages/Cart/Cart";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"; // Use the correct one
+import UserProfile from "../UserProfile/UserProfile";
 
 const Router = () => {
   return (
@@ -23,6 +24,8 @@ const Router = () => {
       <Route path="/games/:id" element={<Product />} />
       <Route path="/homeappliances/:id" element={<Product />} />
       <Route path="/accessories/:id" element={<Product />} />
+      <Route path="/profile" element={<UserProfile />} />
+      <Route path="/dashboard" element={<Dashboard />} />
 
 
 

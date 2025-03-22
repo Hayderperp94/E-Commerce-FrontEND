@@ -1,109 +1,126 @@
-/* Navbar Styles */
+/* Base Styles */
 .navbar {
     background-color: white;
-    padding: 10px 20px;
+    padding: 0.8rem 1.5rem;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
- 
-}
-
-/* Links */
-.nav-link {
+    position: relative;
+    z-index: 1000;
+   
+  }
+  
+  .logo {
+    max-width: 100px;
+    height: auto;
+  }
+  
+  /* Navigation Links */
+  .navbar-nav {
+    display: flex;
+    gap: 1.2rem;
+  }
+  
+  .navbar-nav .nav-item {
+    display: inline-block;
+  }
+  
+  .nav-link {
     text-decoration: none;
-    color: black;
-    transition: 0.3s;
-}
-
-.nav-link:hover {
+    color: #000;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link:hover {
     color: #007bff;
-}
+  }
+  
 
-/* Language Button */
-.nav-lang-button {
-    background-color: rgb(202, 194, 194);
+  .nav-lang-button, .cart-container  {
+    display:flex;
+    align-items: center;
+   padding:15px 20px;
+    margin-left: 50px;
+    transition:color 0.3s ease;
+    position: relative;
     border-radius: 50%;
     border: none;
-    padding: 0.8rem;
-    font-weight: bold;
-    cursor: pointer;
-}
+    font-size: 1.4rem;
+    
+  }
 
-/* Cart Container */
-.cart-container {
-    position: relative;
-    font-size: 1.5rem;
-    text-decoration: none;
-    color: black;
-}
 
-/* Cart Count Badge */
-.cart-count {
+
+  
+  .cart-count {
     position: absolute;
-    top: -5px;
+    top: -6px;
     right: -10px;
     background-color: red;
     color: white;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: bold;
-    padding: 3px 7px;
+    padding: 3px 6px;
     border-radius: 50%;
-}
-
-/* Navbar Styles for Larger Screens */
-.navbar {
-    background-color: #f8f9fa;
-    padding: 1rem;
-}
-
-.logo {
-    max-width: 100%;
-}
-
-.navbar-nav {
-    display: flex;
-    gap: 1rem;
-}
-
-.navbar-nav .nav-item {
-    display: inline-block;
-}
-
-.navbar-toggler {
-    border: none;
-}
-
-.navbar-toggler-icon {
-    background-color: #333;
-}
-
-/* Mobile View (for screens smaller than 992px) */
-@media (max-width: 992px) {
-    /* Adjust navbar links */
-    .navbar-nav {
-        display: block;
-        width: 100%;
-        padding-top: 10px;
-        text-align: center;
-    }
-
-    .navbar-nav .nav-item {
-        margin-bottom: 10px;
-    }
-
-    /* Adjust cart container */
-    .cart-container {
-        margin-right: 20px;
-    }
-
-    /* Cart and Language Button for Mobile */
-    .nav-lang-button, .cart-container {
-        margin-top: 10px;
-    }
-}
-
-.navbar .btn {
-    margin-left: 10px;
   }
   
-  .navbar .btn-danger {
-    color: white;
+  /* Hamburger Toggler */
+  .navbar-toggler {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin-left: 8rem;
+    
   }
+  
+  .navbar-toggler-icon {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    display: block;
+    border-radius: 2px;
+    position: relative;
+  }
+  
+  .navbar-toggler-icon::before,
+  .navbar-toggler-icon::after {
+    content: '';
+    background-color: #333;
+    width: 25px;
+    height: 3px;
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+  }
+  
+  .navbar-toggler-icon::before {
+    top: -8px;
+  }
+  
+  .navbar-toggler-icon::after {
+    top: 8px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 992px) {
+    .navbar-nav {
+      display: block;
+      width: 100%;
+      padding-top: 10px;
+      text-align: center;
+    }
+  
+    .navbar-nav .nav-item {
+      margin-bottom: 10px;
+    }
+  
+    .nav-lang-button,
+    .cart-container {
+      margin-top: 10px;
+    }
+  
+    .cart-container {
+      margin-right: 10px;
+    }
+  }
+
+ 

@@ -34,12 +34,13 @@ axios
       
 
       <div className="row justify-content-center">
-        {categories?.map((el, index) => (
+        {categories?.filter((el) => el.id !== 5)
+        .map((el, index) => (
           <div className="col-md-4 col-sm-6 col-lg-3 col-12 mb-4" key={index}>
             <Card
               name={el.categoryName}
               desc={el.categoryDescription}
-              img={el.images.length > 0 ? el.images[0].imageUrl : "not found"}
+              img={el.imageUrl}
               path={`/product/${el.id}`}
             />
           </div>

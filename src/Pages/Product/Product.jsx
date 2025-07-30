@@ -11,7 +11,7 @@ const Product = () => {
   const baseURL =
     window.location.hostname === "localhost"
       ? "https://localhost:7124/api/"
-      : "https://hayder94-001-site1.otempurl.com/api/";
+      : "https://hayder1994-001-site1.otempurl.com/api/";
 
   useEffect(() => {
     const getProduct = async () => {
@@ -28,10 +28,10 @@ const Product = () => {
   }, []);
 
   const categoryNames = {
-    "1": "الاجهزة والادوات المنزلية",
-    "2": "الالعاب",
-    "3": "الهواتف المحمولة وملحقاتها",
-    "4": "اجهزة الحاسوب",
+    "1": "الهواتف المحمولة ",
+    "2": "اجهزة الحاسوب واللابتوب",
+    "3": "الاكسسوارات",
+    "4": "العناية والجمال",
   };
 
   return (

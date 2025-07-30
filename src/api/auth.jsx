@@ -4,7 +4,7 @@ import axios from "axios";
 const API_URL =
   window.location.hostname === "localhost"
     ? "https://localhost:7124/api/AppUser"
-    : "https://hayder94-001-site1.otempurl.com/api/AppUser";
+    : "https://hayder1994-001-site1.otempurl.com/api/AppUser";
 
     
 // Register User by sending the fetched data

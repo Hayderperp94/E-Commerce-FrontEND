@@ -36,16 +36,16 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link to={`electronics/4`} className="nav-link"><h2 className="fs-5">الالكترونيات</h2></Link>
+              <Link to={`beautyandcare/4`} className="nav-link"><h2 className="fs-5">العناية والجمال</h2></Link>
             </li>
             <li className="nav-item">
-              <Link to={`/homeappliances/1`} className="nav-link"><h2 className="fs-5">الاجهزةالمنزلية</h2></Link>
+              <Link to={`/smartphones/1`} className="nav-link"><h2 className="fs-5">الاجهزةالمحمولة</h2></Link>
             </li>
             <li className="nav-item">
-              <Link to={`/games/2`} className="nav-link"><h2 className="fs-5">الالعاب</h2></Link>
+              <Link to={`/computersandlaptops/2`} className="nav-link"><h2 className="fs-5">اجهزة الحاسوب</h2></Link>
             </li>
             <li className="nav-item">
-              <Link to={`accessories/3`} className="nav-link"><h2 className="fs-5">الهواتف المحمولة</h2></Link>
+              <Link to={`accessories/3`} className="nav-link"><h2 className="fs-5"> الاكسسوارات</h2></Link>
             </li>
           </ul>
         </div>

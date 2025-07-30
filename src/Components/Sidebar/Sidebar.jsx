@@ -30,7 +30,7 @@ function Sidebar() {
         try {
           console.log('Token:', token);
   
-          const response = await fetch("https://localhost:7124/api/AppUser/userinfo", {
+          const response = await fetch("https://hayderproject25-001-site1.otempurl.com/api/AppUser/userinfo", {
             method: "GET",
             headers: {
               "Authorization": `Bearer ${token}`, // Ensure token is valid and not empty

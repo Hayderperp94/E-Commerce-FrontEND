@@ -22,7 +22,7 @@ const LoginPage = () => {
     const BASE_URL =
       window.location.hostname === "localhost"
         ? "https://localhost:7124/api/"
-        : "https://hayder94-001-site1.otempurl.com/api/";
+        : "https://hayder1994-001-site1.otempurl.com/api/";
 
     try {
       const response = await axios.post(

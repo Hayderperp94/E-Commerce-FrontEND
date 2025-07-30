@@ -11,7 +11,7 @@ const Product = () => {
   const baseURL =
     window.location.hostname === "localhost"
       ? "https://localhost:7124/api/"
-      : "https://hayder1994-001-site1.otempurl.com/api/";
+      : "https://hayder1994-001-site1.ltempurl.com/api/";
 
   useEffect(() => {
     const getProduct = async () => {

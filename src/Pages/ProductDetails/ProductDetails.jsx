@@ -16,7 +16,7 @@ const ProductDetails = () => {
     const apiUrl =
       process.env.NODE_ENV === "development"
         ? "https://localhost:7124/api/Products/findbyid"
-        : "https://hayder1994-001.otempurl.com/api/Products/findbyid";
+        : "https://hayder1994-001-site1.ltempurl.com/api/Products/findbyid";
 
     fetch(`${apiUrl}${id}`)
       .then((response) => response.json())

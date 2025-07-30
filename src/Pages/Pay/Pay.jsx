@@ -15,7 +15,7 @@ const Pay = () => {
     // Set API URL depending on environment
     const API_URL = process.env.NODE_ENV === "development" 
         ? "https://localhost:7124/api/" 
-        : "https://hayder1994-001-site1.otempurl.com/api/";
+        : "https://hayder1994-001-site1.ltempurl.com/api/";
 
     useEffect(() => {
         const getUserID = async () => {
